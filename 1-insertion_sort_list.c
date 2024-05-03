@@ -11,11 +11,11 @@
 
 void insert_node(listint_t **list, listint_t *node)
 {
-	listint_t *tp;
+	listint_t *temp;
 
 	while (node->prev != NULL && node->n < (node->prev)->n)
 	{
-		tp = node->prev;
+		temp = node->prev;
 
 		if ((node->prev)->prev != NULL)
 		{
@@ -29,15 +29,15 @@ void insert_node(listint_t **list, listint_t *node)
 		}
 		if (node->next)
 		{
-			(node->next)->prev = tp;
-			tp->next = node->next;
+			(node->next)->prev = temp;
+			temp->next = node->next;
 		}
 		else
 		{
-			tp->next = NULL;
+			temp->next = NULL;
 		}
-		node->next = tp;
-		tp->prev = node;
+		node->next = temp;
+		temp->prev = node;
 		print_list(*list);
 	}
 }
@@ -50,18 +50,18 @@ void insert_node(listint_t **list, listint_t *node)
 
 void insertion_sort_list(listint_t **list)
 {
-	listint_t *mov;
-	listint_t *nex;
+	listint_t *moving;
+	listint_t *next;
 	listint_t *sorted_tail;
 
 	if (!list || !*list)
 		return;
 	sorted_tail = *list;
-	mov = sorted_tail->nex;
-	while (mov)
+	moving = sorted_tail->next;
+	while (moving)
 	{
-		nex = mov->nex;
-		insert_node(list, mov);
-		mov = nex;
+		next = moving->next;
+		insert_node(list, moving);
+		moving = next;
 	}
 }
